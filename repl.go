@@ -7,17 +7,15 @@ import (
 	"strings"
 
 	"github.com/Relevantfender/pokedexcli/internal/pokeapi"
-	"github.com/Relevantfender/pokedexcli/internal/pokecache"
 )
 
-type Config struct {
+type config struct {
 	pokeapiClient    pokeapi.Client
 	nextLocationsURL *string
 	prevLocationsURL *string
-	pokeCache        *pokecache.Cache
 }
 
-func startRepl(cfg *Config) {
+func startRepl(cfg *config) {
 	reader := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Print("Pokedex > ")
@@ -53,7 +51,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*Config) error
+	callback    func(*config) error
 }
 
 func getCommands() map[string]cliCommand {
